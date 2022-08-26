@@ -38,10 +38,11 @@ class UserSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
 class CustomRegisterSerializer(RegisterSerializer):
     first_name = serializers.CharField(required=False)
     last_name = serializers.CharField(required=False)
+    phone = serializers.CharField(required=False)
 
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name', 'email', 'username')
+        fields = ('id', 'first_name', 'last_name', 'phone', 'email', 'username')
 
     def get_cleaned_data(self):
         return{
