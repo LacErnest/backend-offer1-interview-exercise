@@ -11,13 +11,17 @@ TYPE_CHOICES = (
 
 
 INDIVIDUAL = 'INDIVIDUAL'
+FAMILY = 'FAMILY'
 OWNER_TYPE_CHOICES = (
-    (INDIVIDUAL, 'Individual')
+    (INDIVIDUAL, 'Individual'),
+    (FAMILY, 'Family')
 )
 
 SINGLE = 'SINGLE'
+GROUP = 'GROUP'
 PROPERTY_TYPE_CHOICES = (
-    (SINGLE, 'SingleFamilyHome')
+    (SINGLE, 'SingleFamilyHome'),
+    (GROUP, 'GroupHome')
 )
 
 
@@ -145,17 +149,17 @@ class Home(models.Model):
                                default_currency='USD', null=True, default=0)
   
   escrow_company = models.ForeignKey(
-      'housing.Company', on_delete=models.CASCADE, related_name="homes")
+      'housing.Company', on_delete=models.CASCADE, related_name="escrow_homes")
   
   title_company = models.ForeignKey(
-      'housing.Company', on_delete=models.CASCADE, related_name="homes")
+      'housing.Company', on_delete=models.CASCADE, related_name="title_homes")
   
   listing_agent = models.ForeignKey(
       'housing.ListingAgent', on_delete=models.CASCADE, related_name="homes")
   
-  included_items = models.ManyToManyField('housing.Item', blank=True)
+  included_items = models.ManyToManyField('housing.Item', related_name="included_items_homes", blank=True)
   
-  excluded_items = models.ManyToManyField('housing.Item', blank=True)
+  excluded_items = models.ManyToManyField('housing.Item', related_name="excluded_items_homes", blank=True)
   
   updated_at = models.DateTimeField(auto_now=True, editable=False)
   created_at = models.DateTimeField(auto_now_add=True, editable=False)
