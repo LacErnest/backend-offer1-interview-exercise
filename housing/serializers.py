@@ -177,16 +177,16 @@ class HomeSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
 
         if ret['property']:
             property = Property.objects.get(id=ret['property'])
-            ret['property'] = PropertySerializer(property).to_representation()
+            ret['property'] = PropertySerializer(property).data
         if ret['escrow_company']:
             escrow_company = Company.objects.get(id=ret['escrow_company'])
-            ret['escrow_company'] = CompanySerializer(escrow_company).to_representation() #escrow_company.name
+            ret['escrow_company'] = CompanySerializer(escrow_company).data #escrow_company.name
         if ret['title_company']:
             title_company = Company.objects.get(id=ret['title_company'])
-            ret['title_company'] =  CompanySerializer(title_company).to_representation()  #title_company.name
+            ret['title_company'] =  CompanySerializer(title_company).data  #title_company.name
         if ret['listing_agent']:
             listing_agent = ListingAgent.objects.get(id=ret['listing_agent'])
-            ret['listing_agent'] =   ListingAgentSerializer(listing_agent).to_representation()  #"Agent {0} ".format(listing_agent.user.username)
+            ret['listing_agent'] =   ListingAgentSerializer(listing_agent).data  #"Agent {0} ".format(listing_agent.user.username)
         if ret['included_items']:
             items = []
             item_ids = ret['included_items']
