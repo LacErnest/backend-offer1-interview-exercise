@@ -26,7 +26,7 @@ class AddressViewSet(viewsets.ModelViewSet):
     """
     CRUD Address
     """
-    permission_classes = [permissions.IsAuthenticated, ]
+    permission_classes = [permissions.AllowAny, ]
     serializer_class = AddressSerializer
     queryset = Address.objects.all()
 
@@ -56,7 +56,7 @@ class ItemViewSet(viewsets.ModelViewSet):
     """
     CRUD Item
     """
-    permission_classes = [permissions.IsAuthenticated, ]
+    permission_classes = [permissions.AllowAny, ]
     serializer_class = ItemSerializer
     queryset = Item.objects.all()
 
@@ -86,7 +86,7 @@ class ListingAgentViewSet(viewsets.ModelViewSet):
     """
     CRUD ListingAgent
     """
-    permission_classes = [permissions.IsAuthenticated, ]
+    permission_classes = [permissions.AllowAny, ]
     serializer_class = ListingAgentSerializer
     queryset = ListingAgent.objects.all()
 
@@ -116,7 +116,7 @@ class CompanyViewSet(viewsets.ModelViewSet):
     """
     CRUD Company
     """
-    permission_classes = [permissions.IsAuthenticated, ]
+    permission_classes = [permissions.AllowAny, ]
     serializer_class = CompanySerializer
     queryset = Company.objects.all()
 
@@ -146,7 +146,7 @@ class PropertyViewSet(viewsets.ModelViewSet):
     """
     CRUD Property
     """
-    permission_classes = [permissions.IsAuthenticated, ]
+    permission_classes = [permissions.AllowAny, ]
     serializer_class = PropertySerializer
     queryset = Property.objects.all()
 
@@ -176,7 +176,7 @@ class HomeViewSet(viewsets.ModelViewSet):
     """
     CRUD Home
     """
-    permission_classes = [permissions.IsAuthenticated, ]
+    permission_classes = [permissions.AllowAny, ]
     serializer_class = HomeSerializer
     queryset = Home.objects.all()
 
