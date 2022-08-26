@@ -196,7 +196,7 @@ STATICFILES_DIRS = [
 #STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 # MEDIA_ROOT = os.path.join(DATA_DIR, 'media')
-DEFAULT_FILE_STORAGE = 'zebest_api.storage_backend.MediaStorage'
+DEFAULT_FILE_STORAGE = 'offer1_backend.storage_backend.MediaStorage'
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
