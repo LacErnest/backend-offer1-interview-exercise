@@ -55,14 +55,14 @@ class ListingAgentSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerial
         ]
         read_only_fields = ['id', 'created_at', 'updated_at', ]
       
-        def to_representation(self, instance):
-            ret = super().to_representation(instance)
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
 
-            if ret['user']:
-                user = User.objects.get(id=ret['user'])
-                ret['user'] = user.username
+        if ret['user']:
+            user = User.objects.get(id=ret['user'])
+            ret['user'] = user.username
 
-            return ret
+        return ret
       
       
 class CompanySerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
@@ -84,14 +84,14 @@ class CompanySerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer)
         ]
         read_only_fields = ['id', 'created_at', 'updated_at', ]
 
-        def to_representation(self, instance):
-            ret = super().to_representation(instance)
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
 
-            if ret['address']:
-                address = Address.objects.get(id=ret['address'])
-                ret['address'] = address.address_line1
+        if ret['address']:
+            address = Address.objects.get(id=ret['address'])
+            ret['address'] = address.address_line1
 
-            return ret
+        return ret
 
 
 class PropertySerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
@@ -119,17 +119,17 @@ class PropertySerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer
         ]
         read_only_fields = ['id', 'created_at', 'updated_at', ]
 
-        def to_representation(self, instance):
-            ret = super().to_representation(instance)
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
 
-            if ret['address']:
-                address = Address.objects.get(id=ret['address'])
-                ret['address'] = address.address_line1
-            if ret['primary_owner']:
-                primary_owner = User.objects.get(id=ret['primary_owner'])
-                ret['primary_owner'] = primary_owner.username
+        if ret['address']:
+            address = Address.objects.get(id=ret['address'])
+            ret['address'] = address.address_line1
+        if ret['primary_owner']:
+            primary_owner = User.objects.get(id=ret['primary_owner'])
+            ret['primary_owner'] = primary_owner.username
 
-            return ret
+        return ret
       
       
 class HomeSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
@@ -168,37 +168,37 @@ class HomeSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
         ]
         read_only_fields = ['id', 'created_at', 'updated_at', ]
 
-        def to_representation(self, instance):
-            ret = super().to_representation(instance)
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
 
-            if ret['property']:
-                property = Property.objects.get(id=ret['property'])
-                ret['property'] = "{0} with {1} square feet, {2} bedrooms and {3} bathrooms".format(property.description, property.square_feet, property.number_bedroom, property.number_bath)
-            if ret['escrow_company']:
-                escrow_company = Company.objects.get(id=ret['escrow_company'])
-                ret['escrow_company'] = escrow_company.name
-            if ret['title_company']:
-                title_company = Company.objects.get(id=ret['title_company'])
-                ret['title_company'] = title_company.name
-            if ret['listing_agent']:
-                listing_agent = ListingAgent.objects.get(id=ret['listing_agent'])
-                ret['listing_agent'] = "Agent {0} ".format(listing_agent.user.username)
-            if ret['included_items']:
-                items = []
-                item_ids = ret['included_items']
-                if len(item_ids) > 0:
-                    for item_id in item_ids:
-                        item = Item.objects.get(id=item_id)
-                        items.append(item.name)
-                    ret['included_items'] = items
-                    
-            if ret['excluded_items']:
-                items = []
-                item_ids = ret['excluded_items']
-                if len(item_ids) > 0:
-                    for item_id in item_ids:
-                        item = Item.objects.get(id=item_id)
-                        items.append(item.name)
-                    ret['excluded_items'] = items
+        if ret['property']:
+            property = Property.objects.get(id=ret['property'])
+            ret['property'] = "{0} with {1} square feet, {2} bedrooms and {3} bathrooms".format(property.description, property.square_feet, property.number_bedroom, property.number_bath)
+        if ret['escrow_company']:
+            escrow_company = Company.objects.get(id=ret['escrow_company'])
+            ret['escrow_company'] = escrow_company.name
+        if ret['title_company']:
+            title_company = Company.objects.get(id=ret['title_company'])
+            ret['title_company'] = title_company.name
+        if ret['listing_agent']:
+            listing_agent = ListingAgent.objects.get(id=ret['listing_agent'])
+            ret['listing_agent'] = "Agent {0} ".format(listing_agent.user.username)
+        if ret['included_items']:
+            items = []
+            item_ids = ret['included_items']
+            if len(item_ids) > 0:
+                for item_id in item_ids:
+                    item = Item.objects.get(id=item_id)
+                    items.append(item.name)
+                ret['included_items'] = items
+                
+        if ret['excluded_items']:
+            items = []
+            item_ids = ret['excluded_items']
+            if len(item_ids) > 0:
+                for item_id in item_ids:
+                    item = Item.objects.get(id=item_id)
+                    items.append(item.name)
+                ret['excluded_items'] = items
 
-            return ret
+        return ret
