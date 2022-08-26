@@ -10,32 +10,32 @@ from offer1_backend.mixins.get_or_none import get_or_none
 class AddressSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
 
     class Meta:
-      model = Address
-      fields = [
-          'id',
-          'address_line1',
-          'address_line2',
-          'city',
-          'state',
-          'zip',
-          'created_at',
-          'updated_at',
-      ]
-      read_only_fields = ['id', 'created_at', 'updated_at', ]
+        model = Address
+        fields = [
+            'id',
+            'address_line1',
+            'address_line2',
+            'city',
+            'state',
+            'zip',
+            'created_at',
+            'updated_at',
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at', ]
       
       
 class ItemSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
 
     class Meta:
-      model = Item
-      fields = [
-          'id',
-          'name',
-          'listing',
-          'created_at',
-          'updated_at',
-      ]
-      read_only_fields = ['id', 'created_at', 'updated_at', ]
+        model = Item
+        fields = [
+            'id',
+            'name',
+            'listing',
+            'created_at',
+            'updated_at',
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at', ]
       
       
 class ListingAgentSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
@@ -43,26 +43,26 @@ class ListingAgentSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerial
         many=False, allow_null=True, required=False, queryset=User.objects.all(),  label="User associated")
     
     class Meta:
-      model = ListingAgent
-      fields = [
-          'id',
-          'license_number',
-          'license_state',
-          'user',
-          'status',
-          'created_at',
-          'updated_at',
-      ]
-      read_only_fields = ['id', 'created_at', 'updated_at', ]
+        model = ListingAgent
+        fields = [
+            'id',
+            'license_number',
+            'license_state',
+            'user',
+            'status',
+            'created_at',
+            'updated_at',
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at', ]
       
-      # def to_representation(self, instance):
-      #     ret = super().to_representation(instance)
+        def to_representation(self, instance):
+            ret = super().to_representation(instance)
 
-      #     if ret['owner']:
-      #         owner = User.objects.get(id=ret['owner'])
-      #         ret['owner'] = owner.username
+            if ret['user']:
+                user = User.objects.get(id=ret['user'])
+                ret['user'] = user.username
 
-      #     return ret
+            return ret
       
       
 class CompanySerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
@@ -70,28 +70,28 @@ class CompanySerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer)
         many=False, allow_null=True, required=False, queryset=Address.objects.all(),  label="Address associated")
 
     class Meta:
-      model = Company
-      fields = [
-          'id',
-          'name',
-          'phone',
-          'email',
-          'officer_name',
-          'address',
-          'type',
-          'created_at',
-          'updated_at',
-      ]
-      read_only_fields = ['id', 'created_at', 'updated_at', ]
+        model = Company
+        fields = [
+            'id',
+            'name',
+            'phone',
+            'email',
+            'officer_name',
+            'address',
+            'type',
+            'created_at',
+            'updated_at',
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at', ]
 
-      # def to_representation(self, instance):
-      #     ret = super().to_representation(instance)
+        def to_representation(self, instance):
+            ret = super().to_representation(instance)
 
-      #     if ret['owner']:
-      #         owner = User.objects.get(id=ret['owner'])
-      #         ret['owner'] = owner.username
+            if ret['address']:
+                address = Address.objects.get(id=ret['address'])
+                ret['address'] = address.address_line1
 
-      #     return ret
+            return ret
 
 
 class PropertySerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
@@ -102,31 +102,34 @@ class PropertySerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer
         many=False, allow_null=True, required=False, queryset=User.objects.all(),  label="Primary Owner associated")
 
     class Meta:
-      model = Property
-      fields = [
-          'id',
-          'address',
-          'property_type',
-          'square_feet',
-          'number_bedroom',
-          'number_bath',
-          'description',
-          'primary_owner',
-          'owner_type',
-          'primary_image_url',
-          'created_at',
-          'updated_at',
-      ]
-      read_only_fields = ['id', 'created_at', 'updated_at', ]
+        model = Property
+        fields = [
+            'id',
+            'address',
+            'property_type',
+            'square_feet',
+            'number_bedroom',
+            'number_bath',
+            'description',
+            'primary_owner',
+            'owner_type',
+            'primary_image_url',
+            'created_at',
+            'updated_at',
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at', ]
 
-      # def to_representation(self, instance):
-      #     ret = super().to_representation(instance)
+        def to_representation(self, instance):
+            ret = super().to_representation(instance)
 
-      #     if ret['owner']:
-      #         owner = User.objects.get(id=ret['owner'])
-      #         ret['owner'] = owner.username
+            if ret['address']:
+                address = Address.objects.get(id=ret['address'])
+                ret['address'] = address.address_line1
+            if ret['primary_owner']:
+                primary_owner = User.objects.get(id=ret['primary_owner'])
+                ret['primary_owner'] = primary_owner.username
 
-      #     return ret
+            return ret
       
       
 class HomeSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
@@ -149,27 +152,53 @@ class HomeSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
         many=True, allow_null=True, required=False, queryset=Item.objects.all(),  label="Excluded Items")
 
     class Meta:
-      model = Home
-      fields = [
-          'id',
-          'property',
-          'state',
-          'price',
-          'escrow_company',
-          'title_company',
-          'listing_agent',
-          'included_items',
-          'excluded_items',
-          'created_at',
-          'updated_at',
-      ]
-      read_only_fields = ['id', 'created_at', 'updated_at', ]
+        model = Home
+        fields = [
+            'id',
+            'property',
+            'state',
+            'price',
+            'escrow_company',
+            'title_company',
+            'listing_agent',
+            'included_items',
+            'excluded_items',
+            'created_at',
+            'updated_at',
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at', ]
 
-      # def to_representation(self, instance):
-      #     ret = super().to_representation(instance)
+        def to_representation(self, instance):
+            ret = super().to_representation(instance)
 
-      #     if ret['owner']:
-      #         owner = User.objects.get(id=ret['owner'])
-      #         ret['owner'] = owner.username
+            if ret['property']:
+                property = Property.objects.get(id=ret['property'])
+                ret['property'] = "{0} with {1} square feet, {2} bedrooms and {3} bathrooms".format(property.description, property.square_feet, property.number_bedroom, property.number_bath)
+            if ret['escrow_company']:
+                escrow_company = Company.objects.get(id=ret['escrow_company'])
+                ret['escrow_company'] = escrow_company.name
+            if ret['title_company']:
+                title_company = Company.objects.get(id=ret['title_company'])
+                ret['title_company'] = title_company.name
+            if ret['listing_agent']:
+                listing_agent = ListingAgent.objects.get(id=ret['listing_agent'])
+                ret['listing_agent'] = "Agent {0} ".format(listing_agent.user.username)
+            if ret['included_items']:
+                items = []
+                item_ids = ret['included_items']
+                if len(item_ids) > 0:
+                    for item_id in item_ids:
+                        item = Item.objects.get(id=item_id)
+                        items.append(item.name)
+                    ret['included_items'] = items
+                    
+            if ret['excluded_items']:
+                items = []
+                item_ids = ret['excluded_items']
+                if len(item_ids) > 0:
+                    for item_id in item_ids:
+                        item = Item.objects.get(id=item_id)
+                        items.append(item.name)
+                    ret['excluded_items'] = items
 
-      #     return ret
+            return ret
