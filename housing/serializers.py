@@ -134,10 +134,10 @@ class HomeSerializer(FriendlyErrorMessagesMixin, serializers.ModelSerializer):
         many=False, allow_null=True, required=False, queryset=Property.objects.all(),  label="Property associated")
 
     escrow_company = serializers.PrimaryKeyRelatedField(
-        many=False, allow_null=True, required=False, queryset=User.objects.all(),  label="Escrow Company associated")
+        many=False, allow_null=True, required=False, queryset=Company.objects.all(),  label="Escrow Company associated")
     
     title_company = serializers.PrimaryKeyRelatedField(
-        many=False, allow_null=True, required=False, queryset=User.objects.all(),  label="Title Company associated")
+        many=False, allow_null=True, required=False, queryset=Company.objects.all(),  label="Title Company associated")
     
     listing_agent = serializers.PrimaryKeyRelatedField(
         many=False, allow_null=True, required=False, queryset=ListingAgent.objects.all(),  label="Listing Agent associated")
